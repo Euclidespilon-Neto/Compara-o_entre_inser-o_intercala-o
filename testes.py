@@ -4,9 +4,9 @@ import itertools
 import random
 import unittest
 
-from ordenacao import insertion_sort
+from ordenacao import insertion_sort, merge_sort
 
-ALGORITMOS = (insertion_sort,)
+ALGORITMOS = (insertion_sort, merge_sort)
 
 
 class Registro:
