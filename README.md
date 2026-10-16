@@ -69,17 +69,3 @@ Dentro do `dados.csv`, as linhas com `tipo=bruto` representam cada execução in
 Ao executar `python medir.py`, o script atualiza automaticamente os arquivos `dados.csv`, `ambiente.json`, os dois gráficos em PNG e o `RELATORIO.md`. Por isso, qualquer ajuste no texto base do relatório é feito diretamente no arquivo `relatorio.py` antes de rodar o medidor.
 
 Os dados e conclusões presentes neste repositório foram gerados nas execuções realizadas pela dupla, cujas especificações de máquina e sistema estão registradas no arquivo `ambiente.json`, e todo o histórico de desenvolvimento e autoria está registrado nos commits feitos por cada integrante no repositório.
-
-## Análise dos vídeos (Quicksort e Merge Sort)
-
-**1. No vídeo do Quicksort, quem é o pivô e como ele é escolhido? Dá para ver em que momento ele vai para o lugar definitivo?**
-O pivô começa sendo o 3, já que a regra deles é escolher sempre o primeiro elemento da esquerda de cada divisão para colocar o chapéu preto. Dá para ver que ele vai para o lugar definitivo quando os dois chapéus se encontram na mesma pessoa, aí ele tira o chapéu e vira de costas, o que com o 3 acontece em 1:40.
-
-**2. A dança do Quicksort leva quase 7 minutos para ordenar dez dançarinos. Isso contradiz o nome “ordenação rápida”? Por quê?**
-Não contradiz, porque a demora é só pelo tempo da coreografia em cada passo da dança. Na prática o algoritmo fez poucas comparações e trocas direto no próprio vetor, além de que a velocidade do quicksort faz diferença mesmo é em grandes volumes de dados, não em uma lista de 10 elementos.
-
-**3. No Merge Sort, em que momento dá para ver as duas metades já ordenadas se juntando?**
-As duas metades já ordenadas se juntam dos 3:24 até os 4:08, quando eles vão comparando o primeiro disponível de cada lado e descendo o menor para a fila da frente até fechar a sequência de 0 a 9.
-
-**4. Escolham um dos dois e digam: a dança está correta? Se acharem algum passo que não bate com o algoritmo, apontem o minuto.**
-Escolhendo o quicksort, a dança está certa no geral, mas foge do algoritmo nos minutos 2:58, 5:30 e 6:08. Nessas horas sobra só um dançarino na divisão e ele ainda coloca o chapéu e dança sozinho antes de virar de costas, sendo que no código real uma partição de um único elemento já está ordenada e não faz nada.
