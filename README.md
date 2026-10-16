@@ -1,13 +1,10 @@
 # Ordenação: Insertion Sort, Merge Sort e sorted()
 
-Trabalho de Estrutura de Dados Avançados de **Euclides Carlos Pilon Neto** e
-**Gabriela de Araújo Reis**. Inclui o desafio extra de contar as comparações de `sorted()`.
+Trabalho da disciplina de Estrutura de Dados Avançados desenvolvido por **Euclides Carlos Pilon Neto** e **Gabriela de Araújo Reis**, incluindo o desafio extra de contabilizar as comparações da função nativa `sorted()`.
 
 ## Preparar o ambiente
 
-Requisitos: Python 3.10 ou superior e pip. Verifique com `python --version`.
-No Windows, se o comando disponível for `py`, substitua `python` por `py`.
-Abra o terminal na raiz do repositório, onde está `ordenacao.py`.
+O projeto requer Python 3.10 ou superior e o gerenciador `pip` (verifique a versão instalada com `python --version`; no Windows, caso necessário, substitua `python` por `py`). Com o terminal aberto na raiz do repositório, onde fica o arquivo `ordenacao.py`, basta rodar os comandos abaixo para instalar as dependências, executar a bateria de testes e gerar as medições:
 
 ```powershell
 python -m pip install -r requirements.txt
@@ -15,10 +12,9 @@ python -m unittest testes.py -v
 python medir.py
 ```
 
-Não é necessário abrir uma janela gráfica: o Matplotlib usa o modo `Agg`.
-Os arquivos gerados ficam ao lado de `medir.py`, mesmo se o comando for chamado a partir de outra pasta.
+Não é necessário abrir janela gráfica durante a execução, já que o Matplotlib está configurado no modo `Agg`, e todos os arquivos gerados são salvos diretamente na mesma pasta do `medir.py`.
 
-Opcionalmente, crie um ambiente virtual antes de instalar as dependências:
+Caso prefira isolar a instalação em um ambiente virtual antes de rodar o projeto:
 
 ```powershell
 python -m venv .venv
@@ -27,66 +23,63 @@ python -m venv .venv
 .venv\Scripts\python.exe medir.py
 ```
 
-No Linux/macOS, use `.venv/bin/python` no lugar de `.venv\Scripts\python.exe`.
-Essa forma não depende da ativação do ambiente no PowerShell.
+No Linux ou macOS, basta usar `.venv/bin/python` no lugar de `.venv\Scripts\python.exe`, o que permite rodar tudo direto sem depender da ativação do ambiente no terminal.
 
 ## O que cada arquivo faz
 
 | Arquivo | Responsabilidade |
 |---|---|
-| `ordenacao.py` | Implementa as duas ordenações e seus contadores. |
-| `testes.py` | Testa resultados, casos críticos, contagem, estabilidade e preservação da entrada. |
-| `medir.py` | Executa experimentos, agrega dados, gera CSV e gráficos e chama o gerador de relatório. |
-| `relatorio.py` | Produz a tabela e as respostas do relatório usando os resultados reais. |
-| `dados.csv` | Guarda dados brutos e estatísticas. |
-| `ambiente.json` | Registra data, Python, sistema, dependências e parâmetros. |
-| `grafico_tempos.png` | Compara o tempo dos três algoritmos. |
-| `grafico_comparacoes.png` | Compara as contagens e inclui a referência n log₂ n. |
-| `RELATORIO.md` | Apresenta método, tabela, gráficos, respostas e limitações. |
-| `requirements.txt` | Declara a dependência de gráficos. |
+| `ordenacao.py` | Implementa os algoritmos de ordenação e seus contadores de comparações. |
+| `testes.py` | Valida resultados, casos críticos, contagem, estabilidade e preservação da lista original. |
+| `medir.py` | Executa os experimentos, agrega os dados, gera o CSV e os gráficos e aciona o relatório. |
+| `relatorio.py` | Monta a tabela de resultados e preenche o relatório com base nos dados coletados. |
+| `dados.csv` | Armazena tanto as medições brutas quanto as médias e desvios calculados. |
+| `ambiente.json` | Registra a data de execução, versão do Python, sistema operacional e parâmetros usados. |
+| `grafico_tempos.png` | Gráfico comparativo do tempo de execução dos três algoritmos. |
+| `grafico_comparacoes.png` | Gráfico com a contagem de comparações junto à curva de referência n log₂ n. |
+| `RELATORIO.md` | Documento final com a metodologia, tabelas, gráficos e análise dos resultados. |
+| `requirements.txt` | Lista as bibliotecas necessárias para gerar os gráficos. |
 
 ## Como funciona a medição
 
-São usados n = 5, 10, 20, 30, 50, 75, 100, 200, 500 e 1000, com 30 entradas
-aleatórias por tamanho. Cada entrada é uma permutação de `range(n)`; os três algoritmos
-recebem o mesmo conteúdo. As funções próprias retornam uma nova lista e não modificam a entrada.
+Os testes foram configurados para os tamanhos `n = 5, 10, 20, 30, 50, 75, 100, 200, 500 e 1000`, rodando 30 entradas aleatórias para cada tamanho. Cada entrada é gerada como uma permutação de `range(n)` e repassada com exatamente o mesmo conteúdo para os três algoritmos, sendo que as funções implementadas sempre retornam uma nova lista sem alterar a entrada original.
 
-Cada medição cronometra um lote de chamadas e divide a duração pelo tamanho do lote:
-50 chamadas até n = 100 e cinco acima disso. As 30 repetições usam entradas diferentes;
-as chamadas de um mesmo lote repetem a mesma entrada. O cronômetro é `perf_counter_ns()`.
-A geração e a validação ficam fora do cronômetro. A cópia e os contadores internos
-de Insertion/Merge fazem parte do tempo. `sorted()` é cronometrado com inteiros.
+Para evitar distorções em listas muito pequenas, a medição cronometra um lote de chamadas com `perf_counter_ns()` e divide o tempo total pelo tamanho do lote, usando 50 chamadas para `n` até 100 e 5 chamadas para valores maiores. As 30 repetições testam listas diferentes, enquanto as chamadas dentro de um mesmo lote repetem a mesma entrada. A criação das listas e a validação ficam de fora do cronômetro, mas a cópia dos dados e os contadores internos do Insertion Sort e do Merge Sort entram na conta.
 
-As comparações de `sorted()` são contadas em outra execução com `ElementoContador`.
-Somente comparações entre valores entram na contagem. Testes de índices e laços não entram.
+No caso do `sorted()`, o tempo de execução é medido direto com números inteiros, enquanto a contagem de comparações é feita em uma execução separada usando a classe `ElementoContador`. Dessa forma, apenas as comparações diretas entre valores da lista são contabilizadas, deixando de fora verificações internas de índices e laços.
+
+Caso queira rodar o experimento alterando a quantidade de repetições (mínimo de 10) ou fixando outra semente para reproduzir as entradas:
 
 ```powershell
 python medir.py --repeticoes 50 --semente 123
 ```
 
-O programa rejeita menos de dez repetições. A semente reproduz as entradas; os tempos
-podem mudar por causa do computador e de processos concorrentes.
-As contagens do `sorted()` também podem depender da versão da implementação do Python.
+Vale considerar que a semente garante a mesma sequência de listas geradas, mas os tempos de execução variam conforme o hardware e os processos abertos na máquina, assim como a contagem do `sorted()` pode ter pequenas variações dependendo da versão do Python.
 
-## Ler os resultados
+## Leitura dos resultados
 
-Abra `RELATORIO.md` no GitHub ou na prévia Markdown do VS Code. Os gráficos precisam
-estar na mesma pasta. A tabela usa microssegundos; o CSV e o gráfico usam segundos.
-O primeiro n favorável ao Merge é o primeiro **entre os tamanhos medidos**.
-Não deve ser interpretado como fronteira universal ou como medição de inteiros intermediários.
+O arquivo `RELATORIO.md` pode ser visualizado diretamente no GitHub ou pela prévia de Markdown do VS Code, mantendo os arquivos PNG na mesma pasta. Na tabela do relatório os tempos são exibidos em microssegundos para facilitar a leitura, enquanto o CSV e os gráficos trabalham em segundos.
 
-No CSV, `tipo=bruto` identifica uma entrada/repetição; `tipo=media` identifica a média
-de um algoritmo para um tamanho. `comparacoes` é uma contagem exata inteira nas linhas
-brutas e uma média nas linhas de resumo. Os desvios são amostrais. O arquivo usa vírgula
-como separador e ponto decimal; ao importar no Excel, escolha essas opções.
+Nos resultados obtidos, o Merge Sort já leva vantagem no número de comparações desde `n = 5`, e passa a ser mais rápido em tempo de execução a partir de `n = 75`. Como a bateria padrão avalia saltos específicos de tamanho, esse ponto de virada representa o primeiro tamanho medido em que o Merge Sort supera o Insertion Sort (já que os valores inteiros intermediários entre 50 e 75 não fazem parte da grade padrão de testes).
 
-## Regenerar e entregar
+Dentro do `dados.csv`, as linhas com `tipo=bruto` representam cada execução individual, onde a coluna `comparacoes` traz um valor inteiro exato, enquanto as linhas com `tipo=media` trazem o resumo de cada tamanho com a média e o desvio padrão amostral. O arquivo utiliza vírgula como separador de colunas e ponto para casas decimais.
 
-`python medir.py` substitui `dados.csv`, `ambiente.json`, os dois PNGs e `RELATORIO.md`.
-Para manter uma alteração no texto do relatório, edite `relatorio.py` antes de executar.
-Os resultados incluídos no pacote foram produzidos no ambiente descrito em `ambiente.json`;
-a dupla deve executar novamente no computador usado para a entrega e revisar as conclusões.
+## Reprodução dos dados e histórico
 
-Depois de rodar os testes e o experimento, confira o diff e inclua os arquivos gerados
-no commit. O histórico da dupla será construído com os commits feitos por cada integrante;
-este pacote não contém commits nem simula a autoria de nenhum dos dois.
+Ao executar `python medir.py`, o script atualiza automaticamente os arquivos `dados.csv`, `ambiente.json`, os dois gráficos em PNG e o `RELATORIO.md`. Por isso, qualquer ajuste no texto base do relatório é feito diretamente no arquivo `relatorio.py` antes de rodar o medidor.
+
+Os dados e conclusões presentes neste repositório foram gerados nas execuções realizadas pela dupla, cujas especificações de máquina e sistema estão registradas no arquivo `ambiente.json`, e todo o histórico de desenvolvimento e autoria está registrado nos commits feitos por cada integrante no repositório.
+
+## Análise dos vídeos (Quicksort e Merge Sort)
+
+**1. No vídeo do Quicksort, quem é o pivô e como ele é escolhido? Dá para ver em que momento ele vai para o lugar definitivo?**
+O pivô começa sendo o 3, já que a regra deles é escolher sempre o primeiro elemento da esquerda de cada divisão para colocar o chapéu preto. Dá para ver que ele vai para o lugar definitivo quando os dois chapéus se encontram na mesma pessoa, aí ele tira o chapéu e vira de costas, o que com o 3 acontece em 1:40.
+
+**2. A dança do Quicksort leva quase 7 minutos para ordenar dez dançarinos. Isso contradiz o nome “ordenação rápida”? Por quê?**
+Não contradiz, porque a demora é só pelo tempo da coreografia em cada passo da dança. Na prática o algoritmo fez poucas comparações e trocas direto no próprio vetor, além de que a velocidade do quicksort faz diferença mesmo é em grandes volumes de dados, não em uma lista de 10 elementos.
+
+**3. No Merge Sort, em que momento dá para ver as duas metades já ordenadas se juntando?**
+As duas metades já ordenadas se juntam dos 3:24 até os 4:08, quando eles vão comparando o primeiro disponível de cada lado e descendo o menor para a fila da frente até fechar a sequência de 0 a 9.
+
+**4. Escolham um dos dois e digam: a dança está correta? Se acharem algum passo que não bate com o algoritmo, apontem o minuto.**
+Escolhendo o quicksort, a dança está certa no geral, mas foge do algoritmo nos minutos 2:58, 5:30 e 6:08. Nessas horas sobra só um dançarino na divisão e ele ainda coloca o chapéu e dança sozinho antes de virar de costas, sendo que no código real uma partição de um único elemento já está ordenada e não faz nada.
