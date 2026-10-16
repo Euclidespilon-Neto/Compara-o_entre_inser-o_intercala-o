@@ -164,10 +164,72 @@ A análise dos dois algoritmos próprios considera suas comparações, o crescim
 de suas implementações. Além disso, eles contabilizam comparações durante a medição; o `sorted()`
 com inteiros não executa o contador Python do desafio nesse trecho.
 
-## 8. Continuação na etapa 6
+## 8. Quando o Insertion Sort é adequado?
 
-O caso prático do Insertion Sort, a discussão detalhada do desafio extra, a síntese e
-as referências serão acrescentados na revisão de Gabriela. Os resultados desta versão
-já incluem as três ordenações e as contagens do desafio.
+Um exemplo é inserir um novo registro em uma pequena lista que já está ordenada, como uma lista
+de pontuações. Se o novo registro está próximo de sua posição final, poucos deslocamentos bastam.
+Também pode ser usado para ordenar pequenos blocos dentro de algoritmos híbridos.
+
+Para esta implementação, o custo do Insertion pode ser descrito por Θ(n + I), em que I é o número
+de inversões. No melhor caso, há n − 1 comparações para n ≥ 1; no pior caso, com valores distintos
+em ordem inversa, há n(n − 1)/2. O caso médio com permutações uniformes é Θ(n²).
+Dados quase ordenados aproximam-se do caso linear quando a quantidade de inversões é O(n);
+o rótulo “quase ordenado” sozinho não garante esse limite.
+
+O Merge implementado tem tempo Θ(n log n) no melhor, médio e pior caso, para n crescente,
+com memória auxiliar de pico O(n). Listas e chamadas recursivas explicam parte de seu custo constante.
+Não existe um tamanho fixo abaixo do qual Insertion é sempre a melhor escolha em todo computador.
+
+## 9. Desafio extra: comparações do sorted()
+
+Cada valor é envolvido em `ElementoContador`. O método `__lt__` incrementa uma variável de classe
+e compara os valores internos. O contador é zerado antes de cada ordenação e lido ao final.
+Essa execução é separada da cronometragem com inteiros. A contagem é exata para a ordenação dos
+objetos instrumentados; não foi inserido um contador dentro da implementação nativa para inteiros.
+
+{chr(10).join(extra)}
+
+Para n valores distintos, uma árvore binária de decisões precisa distinguir n! permutações.
+Seu pior caso tem pelo menos ⌈log₂(n!)⌉ comparações; sob permutações equiprováveis, a média
+tem limite inferior log₂(n!). Isso produz o limite assintótico Ω(n log n).
+Não significa que toda entrada precise de n log₂ n comparações, nem que cada decisão reduza
+as possibilidades exatamente pela metade. Uma entrada já ordenada pode exigir apenas O(n)
+comparações em uma ordenação adaptativa.
+
+Por isso, uma contagem abaixo de n log₂ n não contradiz o limite teórico. A tabela apresenta as
+duas referências e a razão observada, sem presumir que o resultado será igual ao limite.
+O experimento principal usa listas aleatórias; não mede separadamente o benefício de longos
+trechos previamente ordenados. Para estudar esse benefício, seria preciso acrescentar esse cenário.
+
+## 10. Síntese dos resultados
+
+No maior tamanho medido, n = {maior}, a razão tempo(Insertion)/tempo(Merge) foi **{razao_t:.2f}**,
+e a razão entre suas médias de comparações foi **{razao_c:.2f}**.
+Razões acima de 1 indicam maior custo do Insertion nesse indicador; abaixo de 1, maior custo do Merge.
+A leitura conjunta das tabelas e gráficos permite relacionar o crescimento quadrático da inserção
+ao crescimento n log n da intercalação, respeitando as limitações do experimento finito.
+
+## 11. Verificação e reprodução
+
+Execute `python -m unittest testes.py -v` para verificar os cinco casos obrigatórios e os casos
+adicionais de contagem, estabilidade, entradas com repetição e permutações pequenas.
+Execute `python medir.py` para refazer o CSV, os gráficos, o registro do ambiente e este relatório.
+O programa valida a ordenação fora do trecho cronometrado em cada medição.
+
+O relatório é gerado pelo arquivo `relatorio.py`: alterações de análise que devam permanecer
+após uma nova execução precisam ser feitas nesse gerador. Os nomes dos integrantes são os
+informados pela dupla; a autoria dos commits será registrada quando cada um revisar e enviar
+sua etapa no próprio Git.
+
+## 12. Referências e escopo
+
+- Enunciado e guia fornecidos em `atividade_e_instrucoes.md`. As conclusões sugeridas pela IA
+  foram substituídas por análises condicionadas aos resultados. As atribuições às Aulas 10 e 11
+  não foram verificadas diretamente nos slides para esta versão.
+- Python: [Sorting Techniques](https://docs.python.org/3/howto/sorting.html).
+- CPython: [notas de implementação da ordenação](https://github.com/python/cpython/blob/main/Objects/listsort.txt).
+- Python: [time.perf_counter_ns](https://docs.python.org/3/library/time.html#time.perf_counter_ns).
+
+A discussão sobre tabelas hash foi omitida por não ser necessária às perguntas da atividade.
 '''
     (pasta / 'RELATORIO.md').write_text(texto, encoding='utf-8')

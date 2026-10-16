@@ -2,7 +2,7 @@
 
 **Integrantes:** Euclides Carlos Pilon Neto e Gabriela de Araújo Reis.  
 **Disciplina:** Estrutura de Dados Avançados.  
-**Execução registrada (UTC):** 2026-10-16T00:21:43.657093+00:00.
+**Execução registrada (UTC):** 2026-10-16T00:26:44.279241+00:00.
 
 ## 1. Objetivo e implementação
 
@@ -54,16 +54,16 @@ Uma contagem individual é inteira e exata. Sua média entre diferentes listas p
 
 | n | Insertion: tempo (µs) | Merge: tempo (µs) | sorted: tempo (µs) | Insertion: comparações | Merge: comparações | sorted: comparações |
 |---:|---:|---:|---:|---:|---:|---:|
-| 5 | 1.148 ± 0.209 | 4.983 ± 0.574 | 0.208 ± 0.013 | 7.43 ± 1.81 | 7.00 ± 0.87 | 8.73 ± 1.55 |
-| 10 | 3.199 ± 0.756 | 12.274 ± 0.987 | 0.309 ± 0.092 | 28.80 ± 5.93 | 22.57 ± 1.61 | 24.43 ± 1.30 |
-| 20 | 11.115 ± 4.582 | 28.745 ± 1.782 | 0.485 ± 0.034 | 109.77 ± 13.01 | 63.37 ± 2.51 | 64.10 ± 2.01 |
-| 30 | 21.403 ± 2.760 | 44.622 ± 2.018 | 0.711 ± 0.068 | 238.27 ± 26.97 | 111.83 ± 2.59 | 110.20 ± 2.48 |
-| 50 | 62.943 ± 6.790 | 80.725 ± 3.415 | 1.337 ± 0.170 | 669.40 ± 67.12 | 221.27 ± 4.71 | 219.37 ± 2.94 |
-| 75 | 135.716 ± 11.063 | 125.403 ± 3.127 | 2.263 ± 0.471 | 1471.07 ± 105.45 | 376.20 ± 5.39 | 372.87 ± 3.09 |
-| 100 | 273.005 ± 86.612 | 190.926 ± 28.413 | 3.424 ± 1.280 | 2567.50 ± 170.66 | 540.30 ± 4.76 | 535.97 ± 4.99 |
-| 200 | 991.489 ± 86.091 | 423.465 ± 41.286 | 12.001 ± 3.150 | 10149.33 ± 560.92 | 1282.43 ± 7.81 | 1271.63 ± 6.68 |
-| 500 | 6393.415 ± 269.107 | 1181.395 ± 69.842 | 42.848 ± 7.604 | 62978.50 ± 1918.88 | 3855.57 ± 13.55 | 3834.13 ± 9.94 |
-| 1000 | 27144.611 ± 1288.801 | 2596.707 ± 183.371 | 101.401 ± 12.956 | 250788.80 ± 3952.66 | 8703.60 ± 17.45 | 8656.37 ± 13.41 |
+| 5 | 1.413 ± 0.466 | 6.533 ± 3.017 | 0.292 ± 0.274 | 7.43 ± 1.81 | 7.00 ± 0.87 | 8.73 ± 1.55 |
+| 10 | 3.318 ± 0.784 | 13.469 ± 2.559 | 0.358 ± 0.184 | 28.80 ± 5.93 | 22.57 ± 1.61 | 24.43 ± 1.30 |
+| 20 | 11.400 ± 4.026 | 31.808 ± 6.154 | 0.535 ± 0.185 | 109.77 ± 13.01 | 63.37 ± 2.51 | 64.10 ± 2.01 |
+| 30 | 23.997 ± 5.825 | 49.581 ± 5.494 | 0.762 ± 0.097 | 238.27 ± 26.97 | 111.83 ± 2.59 | 110.20 ± 2.48 |
+| 50 | 62.621 ± 6.648 | 82.721 ± 8.202 | 1.379 ± 0.279 | 669.40 ± 67.12 | 221.27 ± 4.71 | 219.37 ± 2.94 |
+| 75 | 181.521 ± 80.330 | 153.167 ± 31.819 | 2.490 ± 0.946 | 1471.07 ± 105.45 | 376.20 ± 5.39 | 372.87 ± 3.09 |
+| 100 | 261.219 ± 26.606 | 211.783 ± 78.138 | 3.590 ± 1.118 | 2567.50 ± 170.66 | 540.30 ± 4.76 | 535.97 ± 4.99 |
+| 200 | 1026.833 ± 89.581 | 434.175 ± 57.660 | 12.312 ± 4.552 | 10149.33 ± 560.92 | 1282.43 ± 7.81 | 1271.63 ± 6.68 |
+| 500 | 6855.595 ± 806.027 | 1240.056 ± 136.716 | 43.453 ± 5.735 | 62978.50 ± 1918.88 | 3855.57 ± 13.55 | 3834.13 ± 9.94 |
+| 1000 | 28208.867 ± 1916.934 | 2643.639 ± 216.877 | 106.480 ± 19.140 | 250788.80 ± 3952.66 | 8703.60 ± 17.45 | 8656.37 ± 13.41 |
 
 ## 4. Gráficos
 
@@ -111,8 +111,81 @@ A análise dos dois algoritmos próprios considera suas comparações, o crescim
 de suas implementações. Além disso, eles contabilizam comparações durante a medição; o `sorted()`
 com inteiros não executa o contador Python do desafio nesse trecho.
 
-## 8. Continuação na etapa 6
+## 8. Quando o Insertion Sort é adequado?
 
-O caso prático do Insertion Sort, a discussão detalhada do desafio extra, a síntese e
-as referências serão acrescentados na revisão de Gabriela. Os resultados desta versão
-já incluem as três ordenações e as contagens do desafio.
+Um exemplo é inserir um novo registro em uma pequena lista que já está ordenada, como uma lista
+de pontuações. Se o novo registro está próximo de sua posição final, poucos deslocamentos bastam.
+Também pode ser usado para ordenar pequenos blocos dentro de algoritmos híbridos.
+
+Para esta implementação, o custo do Insertion pode ser descrito por Θ(n + I), em que I é o número
+de inversões. No melhor caso, há n − 1 comparações para n ≥ 1; no pior caso, com valores distintos
+em ordem inversa, há n(n − 1)/2. O caso médio com permutações uniformes é Θ(n²).
+Dados quase ordenados aproximam-se do caso linear quando a quantidade de inversões é O(n);
+o rótulo “quase ordenado” sozinho não garante esse limite.
+
+O Merge implementado tem tempo Θ(n log n) no melhor, médio e pior caso, para n crescente,
+com memória auxiliar de pico O(n). Listas e chamadas recursivas explicam parte de seu custo constante.
+Não existe um tamanho fixo abaixo do qual Insertion é sempre a melhor escolha em todo computador.
+
+## 9. Desafio extra: comparações do sorted()
+
+Cada valor é envolvido em `ElementoContador`. O método `__lt__` incrementa uma variável de classe
+e compara os valores internos. O contador é zerado antes de cada ordenação e lido ao final.
+Essa execução é separada da cronometragem com inteiros. A contagem é exata para a ordenação dos
+objetos instrumentados; não foi inserido um contador dentro da implementação nativa para inteiros.
+
+| n | sorted: média de comparações | n log₂ n | log₂(n!) | sorted / (n log₂ n) |
+|---:|---:|---:|---:|---:|
+| 5 | 8.73 | 11.61 | 6.91 | 0.752 |
+| 10 | 24.43 | 33.22 | 21.79 | 0.736 |
+| 20 | 64.10 | 86.44 | 61.08 | 0.742 |
+| 30 | 110.20 | 147.21 | 107.71 | 0.749 |
+| 50 | 219.37 | 282.19 | 214.21 | 0.777 |
+| 75 | 372.87 | 467.16 | 363.40 | 0.798 |
+| 100 | 535.97 | 664.39 | 524.76 | 0.807 |
+| 200 | 1271.63 | 1528.77 | 1245.38 | 0.832 |
+| 500 | 3834.13 | 4482.89 | 3767.35 | 0.855 |
+| 1000 | 8656.37 | 9965.78 | 8529.40 | 0.869 |
+
+Para n valores distintos, uma árvore binária de decisões precisa distinguir n! permutações.
+Seu pior caso tem pelo menos ⌈log₂(n!)⌉ comparações; sob permutações equiprováveis, a média
+tem limite inferior log₂(n!). Isso produz o limite assintótico Ω(n log n).
+Não significa que toda entrada precise de n log₂ n comparações, nem que cada decisão reduza
+as possibilidades exatamente pela metade. Uma entrada já ordenada pode exigir apenas O(n)
+comparações em uma ordenação adaptativa.
+
+Por isso, uma contagem abaixo de n log₂ n não contradiz o limite teórico. A tabela apresenta as
+duas referências e a razão observada, sem presumir que o resultado será igual ao limite.
+O experimento principal usa listas aleatórias; não mede separadamente o benefício de longos
+trechos previamente ordenados. Para estudar esse benefício, seria preciso acrescentar esse cenário.
+
+## 10. Síntese dos resultados
+
+No maior tamanho medido, n = 1000, a razão tempo(Insertion)/tempo(Merge) foi **10.67**,
+e a razão entre suas médias de comparações foi **28.81**.
+Razões acima de 1 indicam maior custo do Insertion nesse indicador; abaixo de 1, maior custo do Merge.
+A leitura conjunta das tabelas e gráficos permite relacionar o crescimento quadrático da inserção
+ao crescimento n log n da intercalação, respeitando as limitações do experimento finito.
+
+## 11. Verificação e reprodução
+
+Execute `python -m unittest testes.py -v` para verificar os cinco casos obrigatórios e os casos
+adicionais de contagem, estabilidade, entradas com repetição e permutações pequenas.
+Execute `python medir.py` para refazer o CSV, os gráficos, o registro do ambiente e este relatório.
+O programa valida a ordenação fora do trecho cronometrado em cada medição.
+
+O relatório é gerado pelo arquivo `relatorio.py`: alterações de análise que devam permanecer
+após uma nova execução precisam ser feitas nesse gerador. Os nomes dos integrantes são os
+informados pela dupla; a autoria dos commits será registrada quando cada um revisar e enviar
+sua etapa no próprio Git.
+
+## 12. Referências e escopo
+
+- Enunciado e guia fornecidos em `atividade_e_instrucoes.md`. As conclusões sugeridas pela IA
+  foram substituídas por análises condicionadas aos resultados. As atribuições às Aulas 10 e 11
+  não foram verificadas diretamente nos slides para esta versão.
+- Python: [Sorting Techniques](https://docs.python.org/3/howto/sorting.html).
+- CPython: [notas de implementação da ordenação](https://github.com/python/cpython/blob/main/Objects/listsort.txt).
+- Python: [time.perf_counter_ns](https://docs.python.org/3/library/time.html#time.perf_counter_ns).
+
+A discussão sobre tabelas hash foi omitida por não ser necessária às perguntas da atividade.
