@@ -1,4 +1,4 @@
-"""Executa experimentos pareados e refaz CSV e gráficos."""
+"""Executa experimentos pareados e refaz CSV, gráficos e relatório."""
 
 import argparse
 import csv
@@ -183,7 +183,9 @@ def main():
     }
     (PASTA / 'ambiente.json').write_text(json.dumps(metadados, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     gerar_graficos(resumo)
-    print('Pronto: dados.csv, ambiente.json, dois gráficos atualizados.')
+    from relatorio import gerar_relatorio
+    gerar_relatorio(resumo, metadados, PASTA)
+    print('Pronto: dados.csv, ambiente.json, dois gráficos e RELATORIO.md atualizados.')
 
 
 if __name__ == '__main__':
