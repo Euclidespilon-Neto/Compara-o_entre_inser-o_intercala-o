@@ -1,9 +1,10 @@
 {
-  "gerado_em_utc": "2026-10-15T23:56:15.782188+00:00",
+  "gerado_em_utc": "2026-10-16T00:07:01.140518+00:00",
   "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
   "implementacao": "CPython",
   "sistema": "Windows-11-10.0.26200-SP0",
   "processador": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+  "matplotlib": "3.11.2",
   "repeticoes": 30,
   "semente": 20261015,
   "tamanhos": [
@@ -21,5 +22,5 @@
   "entradas": "Permutações de range(n), Random(semente + n); uma nova por repetição.",
   "lotes": "50 chamadas por entrada para n <= 100; 5 para n > 100.",
   "tempo": "perf_counter_ns; cópia e contadores internos dos algoritmos próprios incluídos; sorted com inteiros.",
-  "comparacoes": "Comparações entre valores de Insertion e Merge; sorted ainda sem contagem."
+  "comparacoes": "Comparações entre valores; sorted contado separadamente usando __lt__."
 }

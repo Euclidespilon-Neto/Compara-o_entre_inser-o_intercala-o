@@ -103,5 +103,18 @@ class TestOrdenacao(unittest.TestCase):
             self.assertEqual([r.etiqueta for r in resultado], ['b', 'd', 'a', 'c'])
 
 
+class TestSortedContador(unittest.TestCase):
+    def test_contagens_conhecidas(self):
+        from medir import contar_sorted
+        for entrada, esperado in (([], 0), ([1], 0), ([1, 2, 3, 4], 3)):
+            self.assertEqual(contar_sorted(entrada), esperado)
+
+    def test_contador_reiniciado(self):
+        from medir import contar_sorted
+        primeira = contar_sorted([3, 1, 2, 5, 4])
+        self.assertEqual(contar_sorted([3, 1, 2, 5, 4]), primeira)
+        self.assertEqual(contar_sorted([]), 0)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
